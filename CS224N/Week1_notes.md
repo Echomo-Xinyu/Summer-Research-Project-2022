@@ -1,13 +1,13 @@
 # Week1 notes
 
-## Lecture 1: Introduction and Word Vectors
+## Lecture1: Introduction and Word Vectors
 
 Random thoughts:
 
 - Language can mean different for different people.
 - languages serve as the glue to connect people as community and promote connection and collaboration.
 
-in linguistics, denotational semnatics to represent meaning.
+in linguistics, denotational semantics to represent meaning.
 
 ### WordNet
 
@@ -77,3 +77,92 @@ Vector composition can be applied similarly (in ideal context) (eg king - man + 
 ### Personal Random Note
 
 the formula on the blackboard for $J(\theta)$ has no $\theta$ inside.
+
+## Lecture2: Word Vectors and Word Senses
+
+### Continue fromn Lecture1
+
+The vector space from the word embeddings may have more meanings in terms of the vector direction. For example, `analogy("man", "king", "woman")` should yield `"queen"`.
+
+The issue of labelling individual points in a scatter plot can be addressed with this [stackoverflow answer](https://stackoverflow.com/questions/14432557/matplotlib-scatter-plot-with-different-text-at-each-data-point).
+
+### Word2vec notes
+
+We are generating a model that gives a reasonably high probability estimate to all words that occur in the context -- same predictions at each position.
+
+### Word2vec Optimization
+
+We use *gradient descent* to minimize the cost function $J(\theta)$ in previous class. During each iteration, we udpate $\theta$ value in the direction of negative gradient.
+
+$$ \theta^\text{new} = \theta^\text{old} - \alpha \nabla_\theta J(\theta)$$
+
+with $\alpha$ as the *step size* or *learning rate*.
+
+**Problem**: $\nabla_\theta J(\theta)$ can be very expensive to compute as $J(\theta)$ can potentially mean billions of windows in the corpus.
+
+**Solution**: *Stochastic gradient descent* (SGD) top repeatedly sample windows and update after each one. (updating $\theta$ value right after one single sampled window) [Tradeoff between SGD and GD](https://datascience.stackexchange.com/questions/36450/what-is-the-difference-between-gradient-descent-and-stochastic-gradient-descent).
+
+**Potential problems**:
+
+- The vectors in SGD can be very sparse (with at most 2m+1) words. We hence need to be careful about the update we make.
+- we can have only one vector instead of the two vector mentioned (which can be easier to optimize). We have gone through *skip-grams* during lecture and Continuous Bag of Words (CBOW) which predict center word from (bag of) context words.
+- Negative sampling can add additional efficiency in training. (which can be more complex but cheaper in training compared to softmax method) -- practice of skip-gram methods with negative sampling in a2.
+
+Hyperparameters such as choosing window size and 3/4 in Unigram distribution are useful practical tricks.
+
+### A Traditiaonal Stats perspective
+
+We may consider counting the frequency of all the words within the window centered on a certain word $w$ in the whole corpus. -- name it as a matrix of co-occurance accounts.
+
+Problems:
+
+- increase in size with vocabulary
+- very high dimensional: storage consuming
+- subsequent clasification models have sparsity issues
+- classification models are less robust
+
+One solution: reduce the matrix to ow dimensionality (practice in a1) -- Latent Semantic Analysis(LSA) and Singular value decomposition([SVD](https://en.wikipedia.org/wiki/Singular_value_decomposition)).
+
+Some tricks:
+
+- scaling down the counts of words that appear too frequently (eg taking a ceiling $min(X, t)$ with $t \approx 100$)
+- ramped windwos that count more of closer words
+- use Pearson correlations instead of counts, then set negative values to 0.
+
+| Count based                                       | direct prediction                                   |
+|---------------------------------------------------|-----------------------------------------------------|
+| LSA etc                                           | Skip-gram / CBOW                                    |
+| Fast training                                     | Scales with corpus size                             |
+| Efficient usage of statistics                     | Inefficient usage of statistiscs                    |
+| Primarily used to capture word similarity         | Generate improved performance on other tasks        |
+| Disproportionate improtance given to large counts | Can capture complex patterns beyond word similarity |
+
+hence, can we combine them together? Ratio of co-occurrence probabilities.
+
+### GloVe model
+
+Log-bilinear model: $w_i \cdot w_j = \log P(i|j)$ to capture ratios of co-occurrence probabilities as linear meaning components in a word vector space.
+
+$$ J = \sum^V_{i, j = 1}f(X_{ij})(w^T_i\tilde{w_j} + b_1 + \tilde{b_j} - \log X_{ij})^2$$
+
+where f is a function that increases around linearly and stop increasing after a certain threshold.
+
+### Evaluate word vectors
+
+Intrinsic:
+
+- evaluation on a spefici / intermediate subtask
+- fast to compute
+- helps to understand that system
+- not clear if really helpful unless correlation to real task is established
+
+Extrinsic:
+
+- evaluation on a real task
+- can be time consuming to compute accuracy
+- unclear if the subsyem is the problem or its interaction or other subsytems
+- if replacing exactly one subsystem with another improves accuracy
+
+In human languages, words are inherently carrying multiple meanings and hence can be ambiguous.
+
+One way is to decompose a word into a few culster, each with different sense meanings, and combine the vectors with a weighted average.
