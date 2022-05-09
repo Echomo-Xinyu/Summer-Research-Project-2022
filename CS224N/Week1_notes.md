@@ -166,3 +166,32 @@ Extrinsic:
 In human languages, words are inherently carrying multiple meanings and hence can be ambiguous.
 
 One way is to decompose a word into a few culster, each with different sense meanings, and combine the vectors with a weighted average.
+
+## Word2Vec Tutorial
+
+### Part1: Skip-gram model
+
+Link to tutorial is here: [Link](http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/). This section only aims to record some personal thoughts while reading.
+
+Neural Network structure:
+
+- input: a 1 \* 10000 one-hot vector (representing the center word);
+- hidden layer: 300 linear neurons which then constitue of 10000 \* 300 matrix as a lookup table such that the input vector times this matrix will yield the 1 \* 300 features corresponding to this word;
+- output player: 10000 neurons with softmax classifier to compute the probability of the word at corresponding position appears near the given center word.
+
+### Part2: Negative Sampling
+
+Link to tutorial: [link](http://mccormickml.com/2017/01/11/word2vec-tutorial-part-2-negative-sampling/)
+
+Problem: huge size of hidden layer
+
+Solutions:
+
+1. subsampling frequent words to decrease the number of training examples
+2. modifying the optimization objective with "negative sampling", which causes each training sample to updaye only a small percentage of the model's weights.
+
+**Subsampling** computes a probability function with two parameters: the fraction of the total words in the corpus that are that word, and the threshold value to control how much subsampling occurs. Formula in the tutorial sheet.
+
+**Negative sampling** has each training sample only modify a small percentage of the weights, rather than all of them. We randomlly select a small number ($n$) of "negative" words to update the weights such that the output becomes 0 and also still update the weights for our "positive" word. In this way, we only updates the $n+1$ rows in the hidden layers.
+
+We should also consider to treat phrases as a single word under specific contexts.
