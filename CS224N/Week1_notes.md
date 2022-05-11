@@ -195,3 +195,61 @@ Solutions:
 **Negative sampling** has each training sample only modify a small percentage of the weights, rather than all of them. We randomlly select a small number ($n$) of "negative" words to update the weights such that the output becomes 0 and also still update the weights for our "positive" word. In this way, we only updates the $n+1$ rows in the hidden layers.
 
 We should also consider to treat phrases as a single word under specific contexts.
+
+## Lectuere3: Neural Networks
+
+### Classification setup
+
+$$\{x_i, y_i\}^N_{i=1}$$
+
+We then need to train softmax / logistic regression weights $W$ in order to make prediction. After this, we apply softmax function to get normalized probabilty of $y$ given input $x_i$.
+
+**Cross-entropy loss** (derived from information theory):
+
+$$ H(p, q) = -\sum^C_{c=1}p(c)\log q(c)$$
+
+As we are having one-hot vector as input, the only term left is the negative log probability of the true class.
+
+Softmax alone is merely a linear decision boundaries and hence can be quite limiting. -- high bias. That is why we introduce neural network which has strong abilities to create non-linear approximation.
+
+**Representational learning**: representation of words are updated together with the weights in order to improve the performance of the model.
+
+### Neural Network
+
+$$ f(\sum_iw_ix_i + b) $$
+
+to output the result of this neuron and $f$ is the activitatioin function like logistis regression model $\frac{1}{1+\exp^{-z}}$.
+
+A neural netwrok has several logistic regresion ongoing. Bias is an additional row in the parameter matrix.
+
+non-linearity is important to approximate high-order functions.
+
+### Named Entity Recognition (NER)
+
+Task: find and classify names in a given text.
+
+Subproblems: classify a word in its context window of neighboring words -- concatentate word vectors to be a bigger vector and perform classification on this.
+
+**True window**: the center word is a named entity location; **Corrupt window**: any window whose center word isn't specifically labeled as NER location in our corpus.
+
+max-margin loss: to ensure window's score larger and corrupt window's score lower
+
+### Matrix Calculus
+
+Jacobian matrix: handy to use in vectorized gradients.
+
+### Back Propogation
+
+Chain rule.
+
+The intermediate terms are local error signal and can be reused for $\frac{\partial z}{\partial W}$ after  $\frac{\partial z}{\partial b}$
+
+Shape of the gradient follows the shape of parameters.
+
+## Lecture3 Complementary Notes
+
+[A tutorial on Back Propogation](https://cs231n.github.io/optimization-2/) provides an interesting way to consider the computation as circuits and hence to analyze the operation's effect on the gradient, as well as to show how temporary value storage may ease the computation process.
+
+[Matrix calculus notes](https://web.stanford.edu/class/archive/cs/cs224n/cs224n.1194/readings/gradient-notes.pdf) includes the proof of some basic gradient calculation examples. (the example 5 and 7 mean a too big jump for me personally) but this document may be useful to refer to.
+
+- [ ] read differential calculus [notes](https://web.stanford.edu/class/archive/cs/cs224n/cs224n.1194/readings/review-differential-calculus.pdf)
