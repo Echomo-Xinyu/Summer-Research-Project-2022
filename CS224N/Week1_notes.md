@@ -248,8 +248,55 @@ Shape of the gradient follows the shape of parameters.
 
 ## Lecture3 Complementary Notes
 
-[A tutorial on Back Propogation](https://cs231n.github.io/optimization-2/) provides an interesting way to consider the computation as circuits and hence to analyze the operation's effect on the gradient, as well as to show how temporary value storage may ease the computation process.
+[A tutorial on Back Propogation](https://cs231n.github.io/optimization-2/) provides an interesting perspective to consider the computation as circuits and hence to analyze the operation's effect on the gradient, as well as to show how temporary value storage may ease the computation process.
 
 [Matrix calculus notes](https://web.stanford.edu/class/archive/cs/cs224n/cs224n.1194/readings/gradient-notes.pdf) includes the proof of some basic gradient calculation examples. (the example 5 and 7 mean a too big jump for me personally) but this document may be useful to refer to.
 
 - [ ] read differential calculus [notes](https://web.stanford.edu/class/archive/cs/cs224n/cs224n.1194/readings/review-differential-calculus.pdf)
+
+## Lecture4: Backpropagation
+
+### Followup from Lecture3
+
+$W_{ij}$ only contributes to $z_i$, which could then enable us to transform the matrix.
+
+$$ \frac{\partial s}{\partial W_{ij}}  = \delta_i x_j$$
+
+Hence, the overall answer is:
+
+$$ \frac{\partial s}{\partial W} = \delta^T x^T $$
+
+Tip:
+
+- we may consider bundling certain synonyms together to ensure the training effect of one word is equally applied on its synonyms;
+- making use of pre-trained word vectors can make training easy. But this depends on the context of training, eg when the corpus size is huge;
+- depending on the size of training data set, we may consider to update (fine tune) our word vectors.
+
+### Backpropagation
+
+*Forward propagation* is just to evaluate the expressions in programs.
+
+*Downstream gradient* can be computed as the produce of local gradient and upstream gradient by chain rule.
+
+The effect of node (in an expression tree) is similar to what has been covered in Lecture3 Complementary Notes.
+
+We should always try to make use of existing results to improve the computation efficiency. Compute in the order of reverse topological ordering.
+
+A numeric gradient calculation can be handy in checking the whether gradient has been calculated correctly. But this would be costy in real computation.
+
+### Additional Tips
+
+**Regularization**: to avoid overfit, eg L2 regularization by adding $\lambda \sum_k \theta^2_k$ at the end of cost function $J$.
+
+**Tensorisation** or *matrixization* or *vectorization* can improve the calculation speed significantly compared with using for loops.
+
+**Non-linearities**:
+
+- logistic(sigmoid) vs $\tanh$ vs hard $\tanh$: $\tanh$ is a rescaled and shifted sigmoid from $-1$ to $1$. Hard tanh flatters the slops and makes the computing cheaper;
+- *ReLU* (rectified linear unit): $\text{rect}(z) = \max(z, 0)$ which trains quickly and performs well due to good gradient backflow. A mutant is *leaky ReLU* to have $y=0.01x$ over the negative side.
+
+**parameter initialization**: we need to avoid symmetries that prevent learning
+
+**Optimizer**: plain SGD works but learning rate needs to be tuned. A family of "adaptive" optimizers that scale the parameter adjustment by an accumulated gradient such as Adam, Adagrad, RMSprop, etc.
+
+**learning rate**: init around 0.001. The order of magnitude must be right. Better results can generally be obtained by allowing learning rates to decrease as you train.
