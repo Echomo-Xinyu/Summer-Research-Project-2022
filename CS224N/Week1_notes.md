@@ -300,3 +300,26 @@ A numeric gradient calculation can be handy in checking the whether gradient has
 **Optimizer**: plain SGD works but learning rate needs to be tuned. A family of "adaptive" optimizers that scale the parameter adjustment by an accumulated gradient such as Adam, Adagrad, RMSprop, etc.
 
 **learning rate**: init around 0.001. The order of magnitude must be right. Better results can generally be obtained by allowing learning rates to decrease as you train.
+
+## Lecture4 Complementary Notes
+
+### CS231N Notes on netwrok architecture
+
+**Sigmoid** activation function's drawbacks:
+
+1. close to zero local gradient at extreme values which would make the backpropagation close to zero;
+2. output not zero-centered will introduce a zig-zag dynamics in the gradient updates. Although this issue has little effect on the final update on the weights.
+
+Discussion on **ReLU**:
+
+1. greatly accelerate the convergence of SGD due to its linear, non-saturating form (not definitive)
+2. simple and cheap computing process compared with exponentials in tanh and sigmoid
+3. a poorly set learning rate can effectively make a signficant portion of the units zero, as the negative side of ReLU function has zero gradient
+
+To address the issue of point 3, **leaky ReLU** is used. However, the consistency of teh benefit across tasks is presently unclear.
+
+**Maxout**: a generalized version of ReLU by computing $\max(w^T_1x+b_1, w^T_2x+b_2)$. (ReLU is to have $w^T_1$ and $b_1$ be zero). This would introduce a doubling of parameters however.
+
+The Neural Neywork with at least one hidden layer are *universal approximators*. This means that neural networks with a single hidden layer can be used to approximate any continuous function to any desired precision.
+
+**Regularization** is preferred to address the issue of overfitting.
