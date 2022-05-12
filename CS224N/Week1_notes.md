@@ -323,3 +323,13 @@ To address the issue of point 3, **leaky ReLU** is used. However, the consistenc
 The Neural Neywork with at least one hidden layer are *universal approximators*. This means that neural networks with a single hidden layer can be used to approximate any continuous function to any desired precision.
 
 **Regularization** is preferred to address the issue of overfitting.
+
+### Derivatives, Backpropagation, and Vectorization
+
+This [file](http://cs231n.stanford.edu/handouts/derivatives.pdf) is a very clear introduction from basic single-variable derivative to Jacobian and then derivatives related to tensors.
+
+**Tensor** in machine learning is a D-dimentional grid of numbers. Suppose $f: R^{N_1 \times \dots \times N_{D_x}} \rightarrow R^{M_1 \times \dots \times M_{D_y}}$, the derivative $\frac{\partial y}{\partial x}$ is a generalized Jacobian and is of shape $(M_1 \times \dots \times M_{D_u}) \times (N_1 \times \dots \times N_{D_x})$. We can think of the generalized Jacobian as generalization of a matrix, where each "row" has the same shape as $y$ and each "column" has the same shape as $x$.
+
+$$ x \rightarrow x + \Delta x \Rightarrow y \rightarrow \approx y+\frac{\partial y}{\partial x} \Delta x$$
+
+Explicitly constructing Jacobian can be very costy in memory. Given $y = f(x, w) = wx$ and assuming we are given $\frac{\partial L}{\partial y}$, we can then play around the Math and derive $\frac{\partial L}{\partial x} = \frac{\partial L}{\partial y}x^T$. By my personal derivation, $\frac{\partial L}{\partial w} = x^T\frac{\partial L}{\partial y}$.
