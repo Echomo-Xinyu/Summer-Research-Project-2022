@@ -333,3 +333,31 @@ This [file](http://cs231n.stanford.edu/handouts/derivatives.pdf) is a very clear
 $$ x \rightarrow x + \Delta x \Rightarrow y \rightarrow \approx y+\frac{\partial y}{\partial x} \Delta x$$
 
 Explicitly constructing Jacobian can be very costy in memory. Given $y = f(x, w) = wx$ and assuming we are given $\frac{\partial L}{\partial y}$, we can then play around the Math and derive $\frac{\partial L}{\partial x} = \frac{\partial L}{\partial y}x^T$. By my personal derivation, $\frac{\partial L}{\partial w} = x^T\frac{\partial L}{\partial y}$.
+
+## Lecture5
+
+### Syntactic Structure
+
+Constituency = phrase structure grammar = context-free grammars: words - phrases - bigger phrases -- dominated in linguistics
+
+Dependency sturcture: shows which words depend on (modify or are arguments of) which other words
+
+A few inherent issue with English grammar
+
+- prepositional phrase attachment ambiguity -- Potential exponential number of possible combinations. (Catalan numbers)
+- Coordination scope ambiguity
+- verb phrase attachment ambiguity
+
+### Dependency Grammar and Treebanks
+
+Dependency graph is eventually a connected, single-rooted directed acyclic graph.
+
+Treebank: annotated universal dependency data.
+
+A history of phrasing:
+
+1. Dynamic Programming: before 2000s, cubic or even more complexity
+2. Greedy deterministic transition-based shift-reduced parsing: linear time complexity: put current situation as input to neural network and decide the next actions. repeat this process.
+3. Neural dependency parser: to address issue of 2: sparse + incomplete labels + expensive computation, why not just put the whole stack and buffers into neural network?
+
+Distributed representations
