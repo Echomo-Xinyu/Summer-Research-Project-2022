@@ -5,7 +5,7 @@ summarization and answer questions
 
 Crash blossoms - two meanings
 
-```math
+```
 [A-Z] all capital letters
 [^S] negation S
 | disjunction a|b|c == [abc]
