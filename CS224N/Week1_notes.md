@@ -449,3 +449,69 @@ perplexity: the standard evaluation metric for language models., which is equal 
 RNN can be used in a wide array of way. One impressive one is an encoder module.
 
 Vanilla RNN: RNN covered here. There may be other flavors like GRU, LSTM, multi-layer RNNs
+
+## Lecture7: Vanishing Gradients + Fancy RNNs
+
+### Problems with RNNs and how to fix them
+
+**Vanishing gradient problem**: when intermediate gradients are small, the gradient signal gets smaller and smaller as it backpropagates further.
+
+In formal definition, when $W_h$ is small (related to largest exponential), its exponenial index $i-j$ will affect its value significantly -- exponentially small.
+
+This problem implies that the *gradient signal from faraway* is lost because it's much smaller than *gradient signal from close-by*. So model weights are only updated only with respect to *near effects*, not *long-term effects*.
+
+**Question**: why are we interested in $\frac{\partial J}{\partial h}$ while we are treating $h$ as an activation instead of a weight we are updating?
+
+one temporary answer is that when we treat $h_0$ as trainable vectors.
+
+Gradient can be viewed as a measure of the effect of the past on the future. If the gradient becomes vanishingly small over longer distances, then we cannot tell whether there is no dependency between them or we are having wrong parameters to capture the true dependency over this distance.
+
+example of a such problem: The writer of the books _, choose between is and are. Sequential recency is preferred over syntactic recency.
+
+There is a similar problem of *exploding gradients* when largest eigenvalue is more than 1. -- during gradient descent, the update may be too huge and fail to obtain good results, resulting in Inf or NaN in network.
+
+To address exploding fgradient, gradient clipping: if the norm of the gradient is greater than some threshold, scale it down before applying SGD update. (take a step in the same direction, but a smaller step)
+
+To address the vanishing gradient, what about some extra memory? -- motive of Long Short-Term Memory.
+
+On step $t$, there is a hidden state and a cell state. We introduce forget gate, input gate and output gate in order to determine what information is retained and passed on from the hidden state and cell state from step $t-1$. This is clearly illustrated by the LSTM diagram on slides.
+
+**Question**: why is the forget function not include the cell content from the previous step in its computation? -- one possible answer is that the hidden state from the previous step contains some parts of the cell content.
+
+This atchitecture makes it easier to preserve information from many steps earlier. -- on extreme case, forget gate can choose to never forget anything.
+
+**Gated Recurrent Units** (GRU): to reduce complexity of LSTM while achieving same functionality.
+
+Gate control for information flow. Update gate (fortget + input) + reset gate (select) to have only a new hidden state.
+
+Difference between LSTM and GRU:
+
+GRU is quicker to compute and has fewer parameters;
+
+no conclusive evidence that one consistently performs better than the other. LSTM is a good default choice, switch if efficiency is valued.
+
+vanishing/exploding gradient is not just a RNN problem, especially deep ones (feed-forward and convolutional) -> lower layers are learned very slowly.
+
+solution: add moredirect connections (thus allowing the gradient to flow). eg residual connections (skip-connections) - skip layers to preserve information by default.
+
+dense connections ie DenseNet, directly connect everything together.
+
+highway connections ie HighwayNet: similar to residual connections, but identity connection vs the transformation layer is controlled by a dynamic gate.
+
+RNNs are particularly unstable due to the repeated multiplication by the *same* weight matrix.
+
+### RNN variants
+
+Bidirectional RNNs
+
+motivation: considers the context of both sides.
+
+go from left and right and concatenate the two hidden states and use it for training.
+
+This is not applicable for Language Modeling as we only have left context in LM task. Bidirectional RNNs assume we have access to entire input sequence.
+
+Multi-layer RNNs (stacked RNNs)
+
+allow the network to compute more complex representations. Higher RNNs should compute higher-level features.
+
+High-performing RNNs are often multi-layer (but are not as deep as convolutional or feed-forward networks)
