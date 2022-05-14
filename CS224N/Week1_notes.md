@@ -515,3 +515,86 @@ Multi-layer RNNs (stacked RNNs)
 allow the network to compute more complex representations. Higher RNNs should compute higher-level features.
 
 High-performing RNNs are often multi-layer (but are not as deep as convolutional or feed-forward networks)
+
+## Lecture8: Translation, Seq2Seq, Attention
+
+### Machine Translation
+
+**Machine Translation**: the task of translating a sentence $x$ from one language to a sentence $y$ in another language.
+
+Early Machine Translation: *rule-based*, using a bilingual dictionary to map source language to the target language.
+
+Statistical Machine Translation: learn a probabilistic model from data. find best target language phrase, given the source language phrase. This can be converted into a combination of Language Model and Translation Model.
+
+Parallel data (pairs of human-translated target / source sentences)
+
+alignment: one-to-one, one-to-none, one-to-many, many-to-many, etc. *fertile word*: the one word that corresponds with many words from the other language.
+
+to learn $\argmax_yP(x|y)P(y)$
+
+enumerate every possible y and calculate the probability is too expensive -- use a heuristic search algorithm to search for the best translation, discarding hypotheses that are too low-probability (this process is called *decoding*).
+
+the best systems were extremely complex and had many separately-designed subcomponents. -- significant human effort.
+
+### Neural Machine Translation
+
+do all the work with a single neural network. sequence-to-sequence, which involves two RNN.
+
+*Encoder RNN* produces an encoding of the source sentence, which eventually generates initial hidden state for Decoder RNN. *Decoder RNN* is a Language Model that generates target senetnce, *conditioned* on *encoding*.
+
+Training end-to-end -- pre-training might be considered.
+
+**Greedy decoding**: local optimal is not necessarily global optimal. -- this may be addressed with a search algorithm
+
+**beam search decoding**: keep track of the *k most probable* partial translations (hypotheses). k - *beam size*. This is not guaranteed to find optimal solution but much more efficient.
+
+**stopping criterion**: in greedy, decode until END token; in beam search decoding, when a hypothesis produces END, place it aside and continue exploring others. we may continue until reach certain threshold timestep or reach a threshold number of complete hypothesis.
+
+Problem: longer hypotheses are likely to have lower scores. -- fix by normalizing by length.
+
+advantages:
+
+- better performance - more fluent, better use of context, better use of phrase similarities
+- a single NN to be optimized end-to-end rather than work with many subcomponents
+- less human engineering effort - no feature engineering + same method for all language pairs
+
+disadvantages:
+
+- NMT less interpretable - hard to debug
+- difficult to control - hard to impose certain rules + safety concerns
+
+metrics to evaluate progress: **BLEU** (Bilingual Evaluation Understudy): compute a similarity score based on *n-gram precision* + *short sentence penalty* between machine-written translation to human-written translation.
+
+Problem with BLEU: useful but imperfect -- many possible valid ways to translation.
+
+difficulties remain:
+
+- out-of-vocab words
+- domain mismatch between train and test data
+- maintain context over longer text
+- low-resource language pairs
+- common sense
+- prejudice
+- uninterpretable systems do strange things -- nonsensible input generate essentially noise and hence the decoder is not conditioned
+- the list goes on
+
+NLP tasks including summarization, dialogue, parsing, code generation can be phrased as seq2seq.
+
+### Attention
+
+motivation: informational bottleneck as we encode the source sentence to a single vector that includes all information of the sentence.
+
+On each step of the decoder, use direct connection to the encoder to focus on a particular part of the source sequence by computing a attention distribution which would then produce attention output.
+
+A soft alignment is achieved by the attention distribution.
+
+Q: implication of a change in vector?
+
+Advantages:
+
+- improves NMT performance
+- solve the bottleneck problem
+- helps with vanishing gradient problem
+- provide some interpretability (softa alignment for free)
+
+Attention is a general DL technique: attention is a technique to compute a weighted sum of the values ( a set of vector) dependent on the query (a vector) - query attends to the values.
