@@ -7,7 +7,7 @@ Week 1: *8 May - 13 May 2022*
 This week is to self-learn the NLP course [CS224N - 2019 Winter](https://web.stanford.edu/class/archive/cs/cs224n/cs224n.1194/)
 
 - [x] Lecture1-6
-- [ ] Lecture7-8: to be finished by the start of weekly meeting on Sunday 3pm
+- [x] Lecture7-8: to be finished by the start of weekly meeting on Sunday 3pm
 - [x] assignment1+2 on course website
 
 ## Learning Outcome
@@ -24,7 +24,7 @@ As this week is mostly self-learning, the outcome is essentially a summary of wh
     - high computing cost (large matrix size + quadratic cost for SVD)
     - drastic imbalance in word frequency: "the", "he", "has", etc -- addressed by ignoring such words
 2. **word2Vec**: train a one-layer neural network that is capable to compute probability of a word given its context. The hidden layer will be the word encoding by the end of the training.
-    - *Skip-gram*, to predict the distribution of context words from a center word, as opposed to *Continuous Bag of Words* (CBOW).
+    - *Skip-gram* predicts the distribution of context words from a center word, as opposed to *Continuous Bag of Words* (CBOW).
     - *negative sampling*: update only a selective number of rows during one epoch, as computing for the whole matrix is costy
 3. **GloVe**: a weighted least squares model that trains on global word-word co-occurrence counts -- sota performance in word analogy task. It utilizes the global co-occurence stats which SVD and word2Vec fail to.
 
@@ -48,7 +48,7 @@ Due to inherent confusion in some languages, a *dependency graph* is built to sh
 Problem of language model: to compute the distribution given t-1 previous words.
 
 - take in variable-length input -- as opposed on traditional n-grams language
-- reusing the same weight matrix to avoid inefficient learning while saving memory -- as opposed to fix window size NN
+- reusing the same weight matrix to avoid inefficient learning while saving memory -- as opposed to fixed window size NN
 - a few training details such as backpropagation gradient, evaluation with perplexity
 
 ## Goal for Next Week

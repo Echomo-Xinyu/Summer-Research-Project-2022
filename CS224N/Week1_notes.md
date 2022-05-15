@@ -417,7 +417,7 @@ Initial hidden state can be something we learned or simply zeros.
 advantages:
 
 - any length input
-- computation for step t can (in theory) use information from mnay steps back
+- computation for step t can (in theory) use information from many steps back
 - model size doesn't increase for longer input
 - same weights applied on every timestep, so there is symmetry in how inputs are processed.
 
