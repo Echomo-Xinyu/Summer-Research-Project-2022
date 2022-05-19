@@ -96,3 +96,24 @@ batch normalization: transform the convolution output of a batch by scaling the 
 *1-convolution*: kernel size=1 -- fewer parameters than fully connected network
 
 one application: use CNN as encoder in place of RNN in models similar to seq2seq. Faster in computation as computing being parallelizable.
+
+## Lecture12: Subword Models
+
+morphology little studied in DL, deemed as the minimial level of meaning. character level n-grams may be a better alternative than that morphology alone.
+
+- rich morphology
+- transliteration
+- informal spelling (esp in social networks)
+
+Two approaches for character-level embeddings
+
+1. word embeddings can be composed from character embeddings -- generate embeddings for unknown words
+2. connected language can be processed as characters
+
+human written languages are significantly different -- (fossilized) phonemic + syllabic + ideographic + combination
+
+BPE: Byte Pair Encoding -- originally a *compression* algorithm: most frequent byte pair -> a new byte
+
+start with unigram vocaublary; find most frequent gram pairs -> a new ngram. Automatically decides vocab for the system
+
+Hybrid NMT: translate mostly at word level and only go to the character level when needed.
