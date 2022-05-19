@@ -66,3 +66,33 @@ Limitations of SQuAD:
 But SQuAD 2.0 is still useful and somewhat the best we have right now.
 
 attention score between each word and the bidirectional LSTM hidden state vector from the question to predict start token and end token.
+
+## Lectture11: Convolutional Networks for NLP
+
+Recurrent neural nets cannot capture phrases without prefix context. often have heavy emphasis on last word.
+
+Convolution: usually used to extract features from images. Only 1-dimension convolution is used in this course.
+
+*filter*: a weighted matrix constantly applied to a subsentence to form a shrunk sentence.
+
+*padding*: include zero vector for start and end of the sentence.
+
+*channel*: each filter applied individually
+
+*max pool*: find and extract the maximum value in each channel. -- is there somewhere in the sentence activated regarding the meaning of the channel activated?
+
+*average pool*: find relevance of the sentence to the meaning of the channel.
+
+max pool is usually preferred as the meaning tends to be sparse in natural languages.
+
+*stride*: step size when mooving the filter
+
+*local pooling*: max pooling with vision. max pool within a subrange (length of subrange = stride in local pooling)
+
+*k-max pooling*, *dilated convolution*
+
+batch normalization: transform the convolution output of a batch by scaling the output to be Z.
+
+*1-convolution*: kernel size=1 -- fewer parameters than fully connected network
+
+one application: use CNN as encoder in place of RNN in models similar to seq2seq. Faster in computation as computing being parallelizable.
