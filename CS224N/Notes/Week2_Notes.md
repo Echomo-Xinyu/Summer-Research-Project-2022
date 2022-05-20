@@ -117,3 +117,50 @@ BPE: Byte Pair Encoding -- originally a *compression* algorithm: most frequent b
 start with unigram vocaublary; find most frequent gram pairs -> a new ngram. Automatically decides vocab for the system
 
 Hybrid NMT: translate mostly at word level and only go to the character level when needed.
+
+## Lecture13: Contextual Word Embeddings and Pretraining
+
+A random tip for QA system building: when encountering an unknown word at test time, we can consider assigning a random vector and compare its output against it -- the output is likely to be similar to the random vector assigned and this will allow us to use the "unknown" word directly in answer.
+
+Representations for a word: word2vec / gloVE, fastText.
+
+Problem of existing representation:
+
+- same representation for a word regardless of the context where a word token occurs -- we want word sense disambiguation;
+- only one representation for a word, but words have different aspects, including semantics, syntactic behavior, and register/connotations;
+
+### ELMo
+
+Hidden states at LSTM are meanted to consider the context and words' representations at corresponding position.
+
+The above approach can be used as a layer to extract better embeddings with context for further learning.
+
+ELMo: Embeddings from Language Models: breakout version from traditional word embeddings to contextual word vectors.
+
+ELMo use all layers (with weights) instead of merely the top layer. -- ~~how to achieve that remains somewhat mysterious~~.
+
+Different layers in ELMo tend to have different strength in different areas. (Areas to be explored)
+
+**ULMfit**: transfer learning from a general model to a specific task. Limit size to be small -- larger version by others include GPT.
+
+### Transformer Intro
+
+Unable to parallelize works in RNN. RNNs still need attention mechanism to deal with long range dependencies - path length. We can use attention alone then.
+
+**Multi-head attention**: map hidden state into different lower dimension spaces and compute attentions separately.
+
+No free lunch: trade off between long chained information and performance
+
+Add positional information into encoder.
+
+### BERT: BiDirectional encoder Representations from Transformers
+
+LMs only use unidirectional context -- we can improve on that. -- words can be seen themselves in bidirectional context.
+
+Mask out certain input words and predict the masked words.
+
+Next Sentence prediction: learn relationships between sentences and to predict whether sentence A is the next sentence of sentence B.
+
+Token embeddings are word pieces. Learned segmented embedding represents each sentence and positional embedding is as for other transformer architectures.
+
+Multi-sentence Natural Language Inference: determine relations between hypothesis and premise.
