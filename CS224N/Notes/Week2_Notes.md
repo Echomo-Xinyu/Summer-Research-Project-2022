@@ -164,3 +164,13 @@ Next Sentence prediction: learn relationships between sentences and to predict w
 Token embeddings are word pieces. Learned segmented embedding represents each sentence and positional embedding is as for other transformer architectures.
 
 Multi-sentence Natural Language Inference: determine relations between hypothesis and premise.
+
+## Lecture14: Transformers and Self-Attention
+
+Attention -> self attention -> multi-head attention
+
+tensor2tensor + sockeye + etc
+
+Residual: carry positional information to higher laters, among other information.
+
+*The whole lecture content appears to be rather superficial to me. It is fairly hard to grasp the concept without really understanding the concepts. So I will rewatch this lecture and update this section of notes again when I feel more confident in this area.*
