@@ -2,20 +2,21 @@
 
 ## Objective
 
-The Summer Research Project 2022 is designed to expose research to undergraduate students during their early year of study.
+The Summer Research Project 2022 is designed to expose research to undergraduate students during their early years of study.
 
 ## Extent of Participation
 
 As stated in the "Project Schedule", this program is expected to last for 13 weeks and take around 400 hours in total.
 
-During the first month, I am planning to complete a series of online webinars ([CS224N 2019 Winter](https://www.youtube.com/playlist?list=PLoROMvodv4rOhcuXMZkNm7j3fVwBBY42z)) to gain an overall view of Natural Language Processing, as well as to implement a few fundamental models to aid deeper understanding. In the following month, I am considering reading on several recent papers of my interest on NLP to understand what are the prevalent approaches to address different sorts of issues and how their progress are. While reading, I will also be trying to implement a few of them and find an interested direction to pursue further. In the last month, I am considering about diving deeper into the field I have picked and experimenting with different models to gain deeper insights. I will also be writing a final report and its content is either a literature review or a real report depending on how my progress is in the direction I have chosen.
+During the first month, I am planning to complete a series of online webinars ([CS224N 2019 Winter](https://www.youtube.com/playlist?list=PLoROMvodv4rOhcuXMZkNm7j3fVwBBY42z)) to gain an overall view of Natural Language Processing, as well as to implement a few fundamental models to aid deeper understanding. In the following month, I am considering reading several recent papers of my interest on NLP to understand what are the prevalent approaches to address different sorts of issues and how their progress is. While reading, I will also be trying to implement a few of them and find an interesting direction to pursue further. In the last month, I am considering diving deeper into the field I have picked and experimenting with different models to gain deeper insights. I will also be writing a final report and its content is either a literature review or a real report depending on how my progress is in the direction I have chosen.
 
 ## Expected Benefits
 
-During this project, I hope to gain more insights into the trending Natural Language Processing area. I hope to understand what the most pressing issues are in this fields as well as what are the current solutions. I also hope to gain.
+During this project, I hope to gain more insights into the trending Natural Language Processing area. I hope to understand what the most pressing issues are in this field as well as what are the current solutions. I also hope to gain.
 
-With this project, I hope to be benefited from following manners:
+With this project, I hope to be benefited from the following manners:
 
-1. Gain basic research skills: to read papers, to formulate problems and analyze on such problems;
+1. Gain basic research skills: to read papers, formulate problems and analyze such problems;
 2. Gain deeper insights into the trending Natural Language Processing: understand the current accomplishments, the most pressing issues and the current measures to address such issues;
-3. Link the basic math knowledge (Calculus, Linear Algebra and Statistics) with more advanced areas and have a more advanced understanding
+3. Link the basic math knowledge (Calculus, Linear Algebra and Statistics) with more advanced areas and have a more advanced understanding;
+4. Understand the role of generative paradigms and how such paradigms can be applied to specific tasks like text data generation.
