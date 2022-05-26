@@ -30,3 +30,30 @@ datasets can be of different lengths and styles: headlines, sentence summary, br
 **ROUGE**: Recall-Oriented Understudy for Gisting Evaluation --  based on n-gram overlap without brevity penalty an dis based on recall instead of precision.
 
 *bottom-up summarization*: overall content selection and less copying of long sequences
+
+## Lecture16: co-reference resolution
+
+Coreference remains unclear in many NLP's tasks.
+
+*Coreference* is when two mentions refer to the same entity in the world. *Anaphora*: a term (anaphor) refers to another term (antecedent). *Obama* said *he* ...; *cataphora*: similar to anaphora but the pronouns comes before he antecedent.
+
+rule-based:
+
+- Hobb's naive algorithm (baseline). find nearby noun phrases and search from low to high promixity.
+- knowledge-based pronominal coreference: *Winograd Schema*
+  - She poured water from the pitcher into the cup unitl *it* was full;
+  - She poured water from the pitcher into the cup until *it* was empty
+
+mention pair:
+
+- train the model to predict only one antecedent for each mention instead of all of them.
+
+mention ranking:
+
+add a dummy NA mention at the beginning to allow the model to decline linking the current mention to anything
+
+clustering:
+
+progressive clustering -- cluster-pair decision is easier than mention-pair decision
+
+evaluation metric: b-cubed and more, consider both precision and recall (to avoid single clustering and generalized clustering).
