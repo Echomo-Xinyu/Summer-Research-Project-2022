@@ -63,3 +63,13 @@ evaluation metric: b-cubed and more, consider both precision and recall (to avoi
 a unified paradigm to unite different tasks into one task (or do pre-train for the whole model)
 
 *curriculumn learning*: learn tasks from simple to difficult.
+
+## Lecture18: TRNN + Constitutency Parsing
+
+building on vector space -- the meaning of a phrase should be determined by its components and such that the phrase can be fit into the vector space.
+
+recursive neural nets vs RNN
+
+greedy approach to merge the components.
+
+in order to introduce composition (very is a function for the word after it eg), we  take each word as two representations (a vector and a matrix) -- recursive matrix-vector model.
