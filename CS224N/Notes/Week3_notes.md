@@ -57,3 +57,9 @@ clustering:
 progressive clustering -- cluster-pair decision is easier than mention-pair decision
 
 evaluation metric: b-cubed and more, consider both precision and recall (to avoid single clustering and generalized clustering).
+
+## Lecture17: Multi-tasking
+
+a unified paradigm to unite different tasks into one task (or do pre-train for the whole model)
+
+*curriculumn learning*: learn tasks from simple to difficult.
